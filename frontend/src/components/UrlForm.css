@@ -1,0 +1,271 @@
+body{
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+}
+
+.url-container{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.url-card{
+  width: 100%;
+  max-width: 760px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 48px;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
+}
+
+.url-title{
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.url-subtitle{
+  margin: 0 0 32px;
+  text-align: center;
+  color: #475569;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.url-form{
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+}
+
+.url-input{
+  width: 100%;
+  height: 56px;
+  padding: 0 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  font-size: 16px;
+  background: #f8fafc;
+  transition: all 0.25s ease;
+}
+
+.url-input::placeholder{
+  color: #94a3b8;
+}
+
+.url-input:focus{
+  outline: none;
+  background: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.url-btn{
+  width: 170px;
+  height: 56px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 55%, #38bdf8 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+}
+
+.url-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(37, 99, 235, 0.28);
+}
+
+.url-btn:disabled{
+  opacity: 0.92;
+  cursor: not-allowed;
+}
+
+.btn-loading{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.spinner{
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  position: relative;
+  animation: spin 0.7s linear infinite;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.spinner::after{
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin{
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+/* shimmer effect */
+.url-btn::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.22),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.url-btn:hover::before{
+  left: 120%;
+}
+
+.result-box{
+  margin-top: 24px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.result-label{
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.result-row{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.result-link{
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 700;
+  word-break: break-all;
+}
+
+.result-link:hover{
+  text-decoration: underline;
+}
+
+.copy-btn{
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover{
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.toast{
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: #16a34a;
+  color: #ffffff;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 14px 28px rgba(22,163,74,0.28);
+  animation: toastSlide 0.25s ease;
+  z-index: 1000;
+}
+
+@keyframes toastSlide{
+  from{
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-group{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.error-text{
+  min-height: 20px;
+  margin: 8px 4px 0;
+  color: #dc2626;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 640px){
+  .url-card{
+    padding: 26px;
+  }
+
+  .url-title{
+    font-size: 2rem;
+  }
+
+  .url-form{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .url-input{
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .url-btn{
+    width: 100%;
+  }
+}
