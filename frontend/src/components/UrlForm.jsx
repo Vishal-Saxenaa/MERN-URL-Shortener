@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import './UrlForm.css';
+import { Link } from "react-router-dom";
 
 function UrlForm() {
   const [url, setUrl] = useState("");
@@ -8,6 +9,7 @@ function UrlForm() {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
+  const [shortCode, setShortCode] = useState("");
 
 
   const handleSubmit = async (e) =>{
@@ -20,28 +22,34 @@ if (!urlPattern.test(url)) {
     return;
 }
 
-  setError("");
-  setLoading(true);
+ setError("");
+setLoading(true);
 
-  const handleCopy = async ()=>{}
-  
-  try{
-    const response = await axios.post(
-      "http://localhost:5000/shorten",
-      {originalUrl: url}
-    );
+try {
 
-    console.log(response.data);
-
-    setShortUrl(`http://localhost:5000/${response.data.shortCode}`);
-
-      setUrl("");
-    } catch(error){
-      console.error("Error creating short URL :",error);
-      alert("Somthing went wrong!");
-    }finally{
-      setLoading(false);
+  const response = await axios.post(
+    "http://localhost:5000/shorten",
+    {
+      originalUrl: url
     }
+  );
+
+  setShortCode(response.data.shortCode);
+
+  setShortUrl(`http://localhost:5000/${response.data.shortCode}`);
+
+  setUrl("");
+
+} catch (error) {
+
+  console.error("Error creating short URL :", error);
+  setError("Failed to create short URL. Please try again.");
+
+} finally {
+
+  setLoading(false);
+
+}
   };
 
     const handleCopy = async () => {
@@ -54,31 +62,15 @@ if (!urlPattern.test(url)) {
         setCopied(false);
       }, 2000);
 
-    } catch (err) {
-      console.error("Copy failed:", err);
-    }
+    } catch (error) {
+
+  console.error("Error creating short URL:", error);
+  setError("Failed to create short URL. Please try again.");
+
+}
   };
 
-//   console.log(url);
 
-   
-
-//   async function handleSubmit(e) {
-//   e.preventDefault();
-
-//   console.log(url);
-
-//   const response = await axios.post(
-//     'http://localhost:5000/shorten',
-//     {
-//       originalUrl: url,
-//     }
-//   );
-
-//   console.log(response.data);
-
-//   setShortUrl(`http://localhost:5000/${response.data.shortCode}`);
-// }
 
   return (
   <div className="url-container">
@@ -113,22 +105,30 @@ if (!urlPattern.test(url)) {
     disabled={!url.trim() || loading}
   >
     {loading ? (
-      <span className="btn-loading">
-        <span className="spinner"></span>
-        <span>Creating...</span>
-      </span>
-    ) : (
-      "Shorten URL"
-    )}
+  <span className="btn-loading">
+    <span className="spinner"></span>
+    <span>Creating...</span>
+  </span>
+) : (
+  "Shorten URL"
+)}
   </button>
 
 </form>
 
     {shortUrl && (
   <div className="result-box">
-    <p className="result-label">Short URL:</p>
+
+    <h3 className="success-title">
+      🎉 Link Generated Successfully 🎉
+    </h3>
+
+    <p className="result-label">
+      Your short URL is ready.
+    </p>
 
     <div className="result-row">
+
       <a
         href={shortUrl}
         target="_blank"
@@ -138,20 +138,36 @@ if (!urlPattern.test(url)) {
         {shortUrl}
       </a>
 
-      <button
-        type="button"
-        className="copy-btn"
-        onClick={handleCopy}
-      >
-        📋 Copy
-      </button>
-    </div>
-  </div>
-)}
+      <div className="action-buttons">
 
-{copied && (
-  <div className="toast">
-    ✅ Link copied to clipboard
+        <button
+          type="button"
+          className="copy-btn"
+          onClick={handleCopy}
+        >
+          📋 Copy
+        </button>
+
+        <a
+          href={shortUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="open-btn"
+        >
+          ↗ Open
+        </a>
+
+        <Link
+          to={`/analytics/${shortCode}`}
+          className="analytics-btn"
+          >
+        📊 Analytics
+        </Link>
+
+      </div>
+
+    </div>
+
   </div>
 )}
 

@@ -1,8 +1,20 @@
-import Home from "./pages/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App (){
+import Home from "./pages/Home";
+import Analytics from "./pages/Analytics";
+
+function App() {
   return (
-    <Home />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route
+          path="/analytics/:shortCode"
+          element={<Analytics />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

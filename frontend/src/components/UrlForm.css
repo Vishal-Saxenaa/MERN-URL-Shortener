@@ -78,14 +78,15 @@ body{
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.22s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-
+  transition: background .3s, transform .2s, box-shadow .3s;
 }
+
+
 
 .url-btn:hover{
   transform: translateY(-2px);
@@ -159,22 +160,31 @@ body{
 }
 
 .result-box{
-  margin-top: 24px;
-  padding: 18px;
-  border-radius: 14px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
+    margin-top: 30px;
+    padding: 22px;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 18px 40px rgba(0,0,0,.08);
+
+    opacity: 0;
+    transform: translateY(25px);
+
+    animation: cardReveal .8s cubic-bezier(.22,1,.36,1) forwards;
 }
 
 .result-label{
-  margin: 0 0 10px;
-  color: #1e3a8a;
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #2563eb;
   font-weight: 700;
+  text-align: center;
 }
 
 .result-row{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -183,28 +193,33 @@ body{
   color: #2563eb;
   text-decoration: none;
   font-weight: 700;
-  word-break: break-all;
+  transition: .3s;
 }
 
 .result-link:hover{
-  text-decoration: underline;
+  color: #1d4ed8;
 }
 
 .copy-btn{
   border: none;
-  background: #2563eb;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
   color: #ffffff;
-  padding: 10px 14px;
+  padding: 12px 20px;
   border-radius: 10px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: 0.3s;
 }
 
 .copy-btn:hover{
-  background: #1d4ed8;
-  transform: translateY(-1px);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, .35);
+}
+
+.copy-btn:active{
+
+  transform: scale(.95s);
 }
 
 .toast{
@@ -219,6 +234,49 @@ body{
   box-shadow: 0 14px 28px rgba(22,163,74,0.28);
   animation: toastSlide 0.25s ease;
   z-index: 1000;
+}
+
+.success-title{
+    margin:0 0 10px;
+    font-size:22px;
+    color:#16a34a;
+    font-weight:700;
+    text-align: center;
+}
+
+.action-buttons{
+    display:flex;
+    gap:12px;
+}
+
+.open-btn{
+    padding:12px 20px;
+    border-radius:10px;
+    background:#16a34a;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.open-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(22,163,74,.30);
+}
+
+.analytics-btn{
+  padding:12px 20px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#7c3aed,#8b5cf6);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+}
+
+.analytics-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(124,58,237,.30);
 }
 
 @keyframes toastSlide{
@@ -244,6 +302,40 @@ body{
   color: #dc2626;
   font-size: 14px;
   font-weight: 600;
+}
+
+@keyframes resultCard{
+
+0%{
+  opacity: 0;
+  transform:translateY(60px) scale(.92);
+  filter:blur(12px);
+}
+
+60%{
+  opacity: 1;
+  transform: translateY(-4px) scale(1.01);
+}
+
+100%{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+}
+
+@keyframes cardReveal{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
 }
 
 @media (max-width: 640px){
